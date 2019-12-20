@@ -1,1 +1,52 @@
+package Assignments;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+public class TxtReading {
+	public static void main(String[] args) throws Exception {
+		Path path = Paths.get("C:\\Users\\Home\\Desktop\\normal.txt");
+		List<String> trimData = new LinkedList<String>();
+
+		Map<Integer, LinkedList<String>> allData = new LinkedHashMap<Integer, LinkedList<String>>();
+		// read file to byte array
+		byte[] bytes = Files.readAllBytes(path);
+		System.out.println("Read text file using Files class");
+		// read file to String list
+		@SuppressWarnings("unused")
+		List<String> allLines = Files.readAllLines(path, StandardCharsets.UTF_8);
+		for (int i = 0; i < allLines.size(); i++) {
+			if (allLines.get(i).trim().length() <= 0) {
+				continue;
+			} else {
+				trimData.add(allLines.get(i));
+			}
+		}
+		System.out.println("Actual length of lines in text file:" + allLines.size());
+		System.out.println("trim length of lines from text file:" + trimData.size());
+		for (int i = 0; i < trimData.size(); i++) {
+			System.out.println(i + "line:" + trimData.get(i));
+			LinkedList<String> lineVal = new LinkedList<String>();
+			String[] splited = trimData.get(i).split("\\s+");
+			for (int j = 0; j < splited.length; j++) {
+
+				System.out.println("j val:" + j + ":" + splited[j]);
+
+				lineVal.add(splited[j]);
+
+			}
+			allData.put(i, lineVal);
+		}
+
+		System.out.println(allData);
+	}
+}
 
